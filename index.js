@@ -16,7 +16,6 @@ const phoneNumber = "[your twilio phone number]";
 const accountSid = '[your twilio acct sid]';
 const authToken = '[your twilio authToken]';
 
-
 const client = require('twilio')(accountSid, authToken);
 const sessionClient = new dialogflowSessionClient(projectId);
 
@@ -49,7 +48,7 @@ app.post('/', async function(req, res) {
     } catch (error) {
         console.log("error => " + JSON.stringify(error, null, 2))
     }
-    console.log("Dialogflow responce => " + JSON.stringify(dialogflowResponse, null, 2));
+    console.log("Dialogflow response => " + JSON.stringify(dialogflowResponse, null, 2));
     // terminate the user request successfully
     res.end();
 });
