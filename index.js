@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+require('dotenv').config();
+
 // to manage user session
 const dialogflowSessionClient =
     require('./botlib/dialogflow_session_client.js');
@@ -11,10 +13,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // set dialogflow and twilio credentials
-const projectId = '[DIALOGFLOW PROJECT ID]';
-const phoneNumber = "[your twilio phone number]";
-const accountSid = '[your twilio acct sid]';
-const authToken = '[your twilio authToken]';
+const projectId = process.env.PROJECT_ID;
+const phoneNumber = process.env.PHONE_NUMBER;
+const accountSid = process.env.ACCOUNT_SID;
+const authToken = process.env.AUTH_TOKEN;
 
 const client = require('twilio')(accountSid, authToken);
 const sessionClient = new dialogflowSessionClient(projectId);
@@ -52,7 +54,6 @@ app.post('/', async function(req, res) {
     // terminate the user request successfully
     res.end();
 });
-
 
 process.on('SIGTERM', () => {
     listener.close(() => {
